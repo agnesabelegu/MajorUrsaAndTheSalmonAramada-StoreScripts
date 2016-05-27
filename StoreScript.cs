@@ -7,15 +7,16 @@ public class StoreScript : MonoBehaviour
     //public variables
     public GameObject TotalCash;
     public GameObject ItemCost;
-    public GameObject ScoreObject;
-    public GameObject StoreScreen;
-    public GameObject ConfirmScreen;
-    public GameObject InsufficientScreen;
+    public GameObject ScoreObject; //keeps track of player's score
+    public GameObject StoreScreen; //holds a reference to the Store gameobject.
+    public GameObject ConfirmScreen; //holds a reference to the Confirm panel
+    public GameObject InsufficientScreen; //holds a reference to the Insufficient Funds panel
     public Image ConfirmItem;
     public GameObject BuyButton;
-    public GameObject PreviewSlot;
-    public GameObject PlayerObject;
+    public GameObject PreviewSlot; //Position where the player gets to see the item before buying
+    public GameObject PlayerObject; //reference to the player object
 
+    //Game audio
     public AudioSource PrivateSFX;
     public AudioClip[] GreetingSFXS;
     public AudioClip[] GoodbyeSFXS;
@@ -28,6 +29,9 @@ public class StoreScript : MonoBehaviour
     {
         TotalCash.GetComponent<Text>().text = "Total Cash: \nBearBuck$" + ScoreObject.GetComponent<ScoreScript>().GetScore();
     }
+    
+    //If item is already bought, don't allow player to buy it twice. 
+    //If not bought, display item cost.
     public void UpdateItemCost(int price, bool status)
     {
         UpdateTotalCash();
@@ -42,9 +46,8 @@ public class StoreScript : MonoBehaviour
             BuyButton.GetComponentInChildren<Text>().text = "EQUIP!";
         }
     }
-
     
-
+    //Check to see if any of the items in the store have already been bought.
     public void UpdateItemStatus(string Name)
     {
         foreach (StoreItemScript item in StoreItems)
